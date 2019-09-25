@@ -21,10 +21,11 @@ class SessionsController extends Controller
 //validate 方法接收两个参数，第一个参数为用户的输入数据，第二个参数为该输入数据的验证规则
 
 //attempt 方法会接收一个数组来作为第一个参数，该参数提供的值将用于寻找数据库中的用户数据
-if (Auth::attempt($credentials)) {
-    // 登录成功后的相关操作
+if (Auth::attempt($credentials, $request->has('remember'))) {
+    
     session()->flash('success', '欢迎回来！');
     return redirect()->route('users.show', [Auth::user()]);
+    
 } else {
     // 登录失败后的相关操作
     session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
