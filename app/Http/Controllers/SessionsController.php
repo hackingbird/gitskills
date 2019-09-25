@@ -29,6 +29,7 @@ if (Auth::attempt($credentials)) {
     // 登录失败后的相关操作
     session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
     return redirect()->back()->withInput();
+    //跳转到上个页面，并携带错误信息
 }
 
        return;
