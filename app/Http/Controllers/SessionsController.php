@@ -34,4 +34,12 @@ if (Auth::attempt($credentials)) {
 
        return;
     }
+
+    public function destroy()
+    {
+        Auth::logout();
+        session()->flash('success', '您已成功退出！');
+        return redirect('login');
+    }
+
 }
