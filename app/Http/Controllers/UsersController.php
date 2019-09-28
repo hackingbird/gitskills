@@ -5,6 +5,7 @@ use Auth;
 use Mail;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Status;
 
 class UsersController extends Controller
 {
@@ -43,10 +44,18 @@ class UsersController extends Controller
         return view('users.create');
     }
 
+
+
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        return view('users.show', compact('user','statuses'));
     }
+
+
+
     public function store(Request $request)
 {
     $this->validate($request, [
